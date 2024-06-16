@@ -76,7 +76,7 @@ export async function POST(req: Request) {
         }
       })
     }
-
+    console.log('new user created ...',newUser)
     return NextResponse.json({message:'OK',user: newUser})
   }
 
@@ -91,7 +91,7 @@ export async function POST(req: Request) {
     }
 
     const updatedUser = await updateUser(id, user)
-
+    console.log('User updated ...',user)
     return NextResponse.json({ message: 'OK', user: updatedUser })
   }
 
@@ -99,10 +99,8 @@ export async function POST(req: Request) {
     const { id } = evt.data
 
     const deletedUser = await deleteUser(id!)
-
+    console.log('User deleted ...',deletedUser)
     return NextResponse.json({ message: 'OK', user: deletedUser })
   }
-  return new Response('', { status: 200 })
-
-  
+  return new Response('', { status: 200 })  
 }
