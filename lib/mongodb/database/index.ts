@@ -6,6 +6,7 @@ const MONGODB_URI= process.env.MONGODB_URI
 let cached = (global as any).mongoose || {conn: null, promise:null} // If there is no mongoose cached connection , then simply set it to a emty object
 
 export const connectToDatabase = async()=>{
+    console.log('Connecting to database....',cached.conn)
     if(cached.conn) return cached.conn
 
     if(!MONGODB_URI) throw new Error("MONGODB URI is missing!!!!")

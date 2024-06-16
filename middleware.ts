@@ -2,7 +2,7 @@ import { authMiddleware ,clerkMiddleware, createRouteMatcher} from "@clerk/nextj
 import { NextResponse, NextRequest } from "next/server";
 
 
-const isProtectedRoute = createRouteMatcher(["/events:id","/api/webhook/clerk","/api/webhook/stripe","/api/uploadthing"]);
+const isProtectedRoute = createRouteMatcher(["/events:id","/api/webhook/stripe","/api/uploadthing"]);
 export default clerkMiddleware((auth,req)=>{
     if (isProtectedRoute(req)) {     auth().protect(); }
 });
