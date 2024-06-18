@@ -22,7 +22,6 @@ import Dropdown from './Dropdown'
 import { Textarea } from '../ui/textarea'
 import {FileUploader} from './FileUploader'
 import Image from "next/image"
-import { Label } from '@radix-ui/react-label'
 import { Checkbox } from '../ui/checkbox'
 
 
