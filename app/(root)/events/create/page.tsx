@@ -4,7 +4,9 @@ import React from 'react'
 
 const CreateEvent = () => {
     const {sessionClaims} = auth()
-    const userId = sessionClaims?.userId as string
+    const userId = sessionClaims?.userId as string;
+
+    console.log('USER ID---',userId)
   return (
     <>
     
