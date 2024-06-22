@@ -12,10 +12,11 @@ export const createEvent = async ({event,userId,path}: CreateEventParams)=>{
         
         await connectToDatabase()
         const organizer = await User.findById(userId)
+        console.log('organiser--',organizer,'userID--',userId)
         if(!organizer){
             throw new Error("Organizer not found!!!")
         }
-        const newEvent = await Event.create({...event,category: event.categoryId,organizer: userId})
+        const newEvent = await Event.create({...event,category: event.categoryId,organiser: userId})
 
         return JSON.parse(JSON.stringify(newEvent))
     } catch (error) {
@@ -37,6 +38,7 @@ export const getEventById = async(eventId:string)=>{
         if(!event){
             throw new Error("Event not found!!")
         }
+        console.log('EVENT--',JSON.parse(JSON.stringify(event)))
         return JSON.parse(JSON.stringify(event))
     } catch (error) {
         handleError(error)
