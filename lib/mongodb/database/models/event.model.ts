@@ -1,5 +1,7 @@
 import { Document,Schema, model, models } from "mongoose";
 import { Interface } from "readline";
+import Category from "./category.model";
+import User from "./user.model";
 
 
 export interface IEvent extends Document{
@@ -29,8 +31,8 @@ const EventSchema = new Schema({
     price: {type:String},
     isFree:{type:Boolean,default:false},
     url: {type:String},
-    category: {type: Schema.Types.ObjectId,ref: 'Category'},
-    organiser:{type: Schema.Types.ObjectId,ref: 'User'},
+    category: {type: Schema.Types.ObjectId,ref: Category.modelName},
+    organiser:{type: Schema.Types.ObjectId,ref: User.modelName},
 })
 
 
