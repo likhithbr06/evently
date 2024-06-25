@@ -1,8 +1,20 @@
+import Collection from "@/components/shared/Collection";
 import { Button } from "@/components/ui/button";
+import { getAllEvents } from "@/lib/mongodb/actions/event.action";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+
+  const events = await getAllEvents({
+    query:'',
+    category:'',
+    page:1,
+    limit: 6,
+  })
+
+  //console.log('getAllEvents---',events)
+
   return (
    <>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-7">
@@ -26,6 +38,7 @@ export default function Home() {
             Search
             Category
           </div>
+          <Collection data={events?.data} emptyTitle="No events found..." emptyStateSubtext="Come back later..." collectionType="All_events" Limit={6} page={1} totalPages={6}/>
       </section>
    </>
   );
