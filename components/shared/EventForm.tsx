@@ -26,18 +26,22 @@ import Image from "next/image"
 import { Checkbox } from '../ui/checkbox'
 import { useRouter } from 'next/navigation'
 import { createEvent } from '@/lib/mongodb/actions/event.action'
+import { IEvent } from '@/lib/mongodb/database/models/event.model'
 
 
 
 type EventFormProps={
     userId: string,
     type: "create" | "update"
+    event?: IEvent,
+    eventId?: string
 }
-const EventForm = ({userId,type} : EventFormProps) => {
+const EventForm = ({userId,type,event,eventId }: EventFormProps) => {
     const [files,setFiles] = useState<File[]>([])
     const [startDate,setStartDate] =useState(new Date())
     const {startUpload} = useUploadThing('imageUploader',)
-    const initialValues = eventDefaultValues
+    const initialValues = event && type === 'update' ? {...event,startDateTime: new Date(event.startDateTime),
+      endDateTime: new Date(event.endDateTime)}: eventDefaultValues
     const Router = useRouter()
     const form = useForm<z.infer<typeof EventFormSchema>>({
         resolver: zodResolver(EventFormSchema),
