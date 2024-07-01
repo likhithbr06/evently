@@ -25,7 +25,7 @@ import {FileUploader} from './FileUploader'
 import Image from "next/image"
 import { Checkbox } from '../ui/checkbox'
 import { useRouter } from 'next/navigation'
-import { createEvent } from '@/lib/mongodb/actions/event.action'
+import { createEvent, updateEvent } from '@/lib/mongodb/actions/event.action'
 import { IEvent } from '@/lib/mongodb/database/models/event.model'
 
 
@@ -78,7 +78,29 @@ const EventForm = ({userId,type,event,eventId }: EventFormProps) => {
           }
         }
 
-        console.log(values)
+        if(type === 'update'){
+          if(!eventId){
+            Router.back()
+            return;
+          }
+          try {
+               const updatedEvent = await updateEvent({
+                userId,
+                event:{...values,imageUrl: uploadedImageUrl,_id:eventId},
+                path:`/events/${eventId}`
+               })
+               if(updatedEvent){
+                form.reset()
+                Router.push(`/events/${updatedEvent._id}`)
+               }
+               console.log('Event updated..!',updatedEvent._id)
+          } catch (error) {
+            console.log(error)
+          }
+        }
+
+
+        //console.log(values)
       }
 
   return (

@@ -36,7 +36,8 @@ export async function updateEvent({ userId, event, path }: UpdateEventParams) {
       await connectToDatabase()
   
       const eventToUpdate = await Event.findById(event._id)
-      if (!eventToUpdate || eventToUpdate.organizer.toHexString() !== userId) {
+      //console.log('eventToUpdate--',eventToUpdate)
+      if (!eventToUpdate || eventToUpdate.organiser.toHexString() !== userId) {
         throw new Error('Unauthorized or event not found')
       }
   
@@ -130,15 +131,15 @@ export const deleteEvent = async({eventId,path}: DeleteEventParams)=>{
 export async function getEventsByUser({ userId, limit = 6, page }: GetEventsByUserParams) {
     try {
       await connectToDatabase()
-  
-      const conditions = { organizer: userId }
+      
+      const conditions = { organiser: userId }
       const skipAmount = (page - 1) * limit
   
       const eventsQuery = Event.find(conditions)
         .sort({ createdAt: 'desc' })
         .skip(skipAmount)
         .limit(limit)
-  
+        
       const events = await populateEvent(eventsQuery)
       const eventsCount = await Event.countDocuments(conditions)
   
