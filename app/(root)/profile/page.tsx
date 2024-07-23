@@ -41,7 +41,7 @@ const Profile = async ({searchParams}: SearchParamProps) => {
         </section>
          <section className='wrapper  my-8'>
         <Collection data={organisedEvents?.data} emptyTitle="No events have been created yet" emptyStateSubtext="Go create some now!"
-         collectionType="Events_organized" Limit={6} page={eventsPage} urlParamName="eventsPage" totalPages={organisedEvents?.totalPages}/>
+         collectionType="Events_organized" Limit={3} page={eventsPage} urlParamName="eventsPage" totalPages={organisedEvents?.totalPages}/>
         </section>
     </>
   )
